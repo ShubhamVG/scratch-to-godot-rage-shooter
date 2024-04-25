@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://cmdmvbrlsx470"]
+
+[ext_resource type="Script" path="res://Scripts/projectile.gd" id="1_xfd7e"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ijhx3"]
+radius = 6.0
+
+[node name="Projectile" type="CharacterBody2D"]
+scale = Vector2(10, 10)
+script = ExtResource("1_xfd7e")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_ijhx3")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="Polygon2D" type="Polygon2D" parent="Sprite2D"]
+color = Color(0.662745, 0, 0.313726, 1)
+offset = Vector2(0, 0.09)
+polygon = PackedVector2Array(2, -5.09, 5, 3, -5, 3, -2, -5.09, 0, -6.09)

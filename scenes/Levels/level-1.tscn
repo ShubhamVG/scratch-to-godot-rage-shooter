@@ -1,0 +1,21 @@
+[gd_scene load_steps=2 format=3 uid="uid://cjyodibnrdnqw"]
+
+[ext_resource type="PackedScene" uid="uid://cmdmvbrlsx470" path="res://scenes/Objects/projectile.tscn" id="1_kxbo0"]
+
+[node name="Level1" type="Node2D"]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_right = 1152.0
+offset_bottom = 648.0
+
+[node name="CharacterBody2D" parent="ColorRect" instance=ExtResource("1_kxbo0")]
+position = Vector2(154, 166)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="Line2D" type="Line2D" parent="StaticBody2D"]
+points = PackedVector2Array(-25, 361, 236, 363, 280, 669, 848, 675, 936, 374, 1208, 354)
+default_color = Color(0, 0, 0, 1)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
+polygon = PackedVector2Array(-52, 343, -9, 353, 243, 354, 291, 678, 291, 680, 834, 685, 927, 363, 1162, 345, 1271, 679, 510, 791, 510, 791, -68, 656, -98, 422)
