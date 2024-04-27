@@ -1,0 +1,52 @@
+[gd_scene load_steps=5 format=3 uid="uid://cjyodibnrdnqw"]
+
+[ext_resource type="PackedScene" uid="uid://cmdmvbrlsx470" path="res://Scenes/Objects/projectile.tscn" id="1_kxbo0"]
+[ext_resource type="Script" path="res://Scripts/level-1.gd" id="1_xfgt0"]
+[ext_resource type="Script" path="res://Scripts/dangerarea.gd" id="2_qrgj1"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_i4c4f"]
+radius = 53.0
+height = 170.0
+
+[node name="Level1" type="Node2D"]
+script = ExtResource("1_xfgt0")
+
+[node name="Background" type="ColorRect" parent="."]
+offset_right = 1152.0
+offset_bottom = 648.0
+
+[node name="Projectile" parent="Background" instance=ExtResource("1_kxbo0")]
+position = Vector2(154, 166)
+
+[node name="Safeground" type="StaticBody2D" parent="."]
+
+[node name="Line2D" type="Line2D" parent="Safeground"]
+points = PackedVector2Array(-25, 361, 236, 363, 280, 669, 848, 675, 936, 374, 1208, 354)
+default_color = Color(0, 0, 0, 1)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Safeground"]
+polygon = PackedVector2Array(-52, 343, -9, 353, 243, 354, 291, 678, 291, 680, 834, 685, 927, 363, 1162, 345, 1271, 679, 510, 791, 510, 791, -68, 656, -98, 422)
+
+[node name="DangerArea" type="Area2D" parent="."]
+script = ExtResource("2_qrgj1")
+
+[node name="Line2D" type="Line2D" parent="DangerArea"]
+points = PackedVector2Array(262, 665, 345, 501, 420, 656, 496, 522, 557, 653, 614, 536, 677, 663, 762, 541, 858, 675)
+default_color = Color(1, 0, 0, 1)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="DangerArea"]
+polygon = PackedVector2Array(261, 665, 345, 504, 418, 653, 496, 522, 557, 648, 615, 536, 676, 661, 764, 539, 858, 673, 826, 720, 295, 717)
+
+[node name="FinishLine" type="Area2D" parent="."]
+position = Vector2(1019, 282)
+
+[node name="Polygon2D" type="Polygon2D" parent="FinishLine"]
+color = Color(0, 1, 0, 1)
+polygon = PackedVector2Array(-46, 75, -51, -50, 15, -55, 17, -2, -40, 4, -36, 74)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FinishLine"]
+position = Vector2(-22, 6)
+shape = SubResource("CapsuleShape2D_i4c4f")
+
+[connection signal="body_entered" from="DangerArea" to="." method="_on_danger_area_body_entered"]
+[connection signal="body_entered" from="FinishLine" to="." method="_on_finish_line_body_entered"]

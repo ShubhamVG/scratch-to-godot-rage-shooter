@@ -14,8 +14,12 @@ func _physics_process(delta: float) -> void:
 	var direction := Input.get_axis("ui_left", "ui_right")
 	rotation += direction * delta
 
-	if Input.is_action_just_pressed("jump") and is_on_floor():
+	if is_on_floor() and Input.is_action_just_pressed("jump"):
 		velocity.x = SPEED * sin(rotation)
 		velocity.y = -SPEED * cos(rotation)
 
 	move_and_slide()
+	
+	
+func respawn(respawn_pos: Vector2) -> void:
+	position = respawn_pos
