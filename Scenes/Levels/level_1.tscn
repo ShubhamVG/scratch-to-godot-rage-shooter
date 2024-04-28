@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://cjyodibnrdnqw"]
 
 [ext_resource type="PackedScene" uid="uid://cmdmvbrlsx470" path="res://Scenes/Objects/projectile.tscn" id="1_kxbo0"]
-[ext_resource type="Script" path="res://Scripts/level-1.gd" id="1_xfgt0"]
+[ext_resource type="Script" path="res://Scripts/level_1.gd" id="1_xfgt0"]
 [ext_resource type="Script" path="res://Scripts/dangerarea.gd" id="2_qrgj1"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_i4c4f"]
@@ -17,6 +17,11 @@ offset_bottom = 648.0
 
 [node name="Projectile" parent="Background" instance=ExtResource("1_kxbo0")]
 position = Vector2(154, 166)
+
+[node name="WorldBoundary" type="StaticBody2D" parent="Background"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Background/WorldBoundary"]
+polygon = PackedVector2Array(0, 0, 1152, 0, 1152, 648, 0, 648, 0, 0, -6, 5, -17, 697, 1301, 719, 1193, -42, -50, -62, -15, -5, -3, -3)
 
 [node name="Safeground" type="StaticBody2D" parent="."]
 

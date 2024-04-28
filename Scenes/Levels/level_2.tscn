@@ -1,11 +1,12 @@
-[gd_scene load_steps=4 format=3 uid="uid://d06hsmym8i0pa"]
+[gd_scene load_steps=5 format=3 uid="uid://d06hsmym8i0pa"]
 
-[ext_resource type="Script" path="res://Scripts/level-1.gd" id="1_ims0f"]
+[ext_resource type="Script" path="res://Scripts/level_2.gd" id="1_sai8r"]
 [ext_resource type="PackedScene" uid="uid://cmdmvbrlsx470" path="res://Scenes/Objects/projectile.tscn" id="2_del0o"]
 [ext_resource type="Script" path="res://Scripts/dangerarea.gd" id="3_tr3pu"]
+[ext_resource type="PackedScene" uid="uid://ccc1ghlamekfu" path="res://Scenes/Objects/prototunnel.tscn" id="3_vsxvs"]
 
 [node name="Level2" type="Node2D"]
-script = ExtResource("1_ims0f")
+script = ExtResource("1_sai8r")
 
 [node name="Background" type="ColorRect" parent="."]
 offset_right = 1152.0
@@ -13,6 +14,11 @@ offset_bottom = 648.0
 
 [node name="Projectile" parent="Background" instance=ExtResource("2_del0o")]
 position = Vector2(154, 166)
+
+[node name="WorldBoundary" type="StaticBody2D" parent="Background"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Background/WorldBoundary"]
+polygon = PackedVector2Array(0, 0, 1152, 0, 1152, 648, 0, 648, 0, 0, -6, 5, -17, 697, 1301, 719, 1193, -42, -50, -62, -15, -5, -3, -3)
 
 [node name="Safeground" type="StaticBody2D" parent="."]
 
@@ -35,8 +41,33 @@ default_color = Color(1, 0, 0, 1)
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="DangerArea"]
 polygon = PackedVector2Array(287, 425, 306, 388, 311, 388, 328, 417, 347, 388, 370, 416, 453, 425, 469, 383, 476, 383, 498, 419, 508, 382, 515, 380, 537, 402, 540, 356, 502, 321, 533, 281, 498, 257, 536, 222, 503, 190, 540, 154, 495, 126, 537, 80, 501, 42, 546, -3, 551, 3, 514, 42, 546, 81, 509, 123, 553, 152, 516, 190, 548, 224, 512, 257, 545, 279, 513, 319, 547, 352, 545, 412, 539, 415, 513, 389, 503, 430, 496, 430, 472, 394, 458, 432, 367, 425, 348, 400, 330, 432, 309, 398, 297, 422)
 
-[node name="FinishLine" type="Area2D" parent="."]
-position = Vector2(1019, 282)
+[node name="Tunnel1" parent="." instance=ExtResource("3_vsxvs")]
+position = Vector2(415, 433)
+scale = Vector2(0.475, 0.475)
+transport_to = Vector2(150, 150)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Tunnel1"]
+polygon = PackedVector2Array(-88.4211, -147.368, -88.4211, -4.21057, 82.1052, -4.21057, 88.421, -147.368, 40, -174.737, -48.4211, -174.737)
+
+[node name="Tunnel2" parent="." instance=ExtResource("3_vsxvs")]
+position = Vector2(620, 436)
+scale = Vector2(0.475, 0.475)
+transport_to = Vector2(150, 150)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Tunnel2"]
+visible = false
+polygon = PackedVector2Array(-88.4211, -147.368, -88.4211, -4.21057, 82.1052, -4.21057, 88.421, -147.368, 40, -174.737, -48.4211, -174.737)
+
+[node name="Tunnel3" parent="." instance=ExtResource("3_vsxvs")]
+position = Vector2(978, 649)
+scale = Vector2(0.475, 0.475)
+transport_to = Vector2(150, 150)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Tunnel3"]
+visible = false
+polygon = PackedVector2Array(-88.4211, -147.368, -88.4211, -4.21057, 82.1052, -4.21057, 88.421, -147.368, 40, -174.737, -48.4211, -174.737)
 
 [connection signal="body_entered" from="DangerArea" to="." method="_on_danger_area_body_entered"]
-[connection signal="body_entered" from="FinishLine" to="." method="_on_finish_line_body_entered"]
+[connection signal="body_entered" from="Tunnel1" to="." method="_on_tunnel_1_body_entered"]
+[connection signal="body_entered" from="Tunnel2" to="." method="_on_tunnel_1_body_entered"]
+[connection signal="body_entered" from="Tunnel3" to="." method="_on_tunnel_1_body_entered"]
